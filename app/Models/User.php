@@ -56,8 +56,21 @@ class User extends Authenticatable
         ];
     }
     public function answeredQuestions()
+    {
+        return $this->belongsToMany(DailyQuestion::class, 'answered_questions');
+    }
+    public function teams()
 {
-    return $this->belongsToMany(DailyQuestion::class, 'answered_questions');
+    return $this->belongsToMany(Team::class, 'team_user')
+                ->withPivot('joined_at')
+                ->withTimestamps();
 }
+
+
+
+    public function join(){
+        return $this->belongsTo(Join::class);
+    }
+    
 
 }
